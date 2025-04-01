@@ -30,13 +30,13 @@ Thus, instead of just going topic-wise, we will master each pattern in-depth! �
 
 🔍 My Approach
 
-Each pattern will have:
+# Each pattern will have:
 
 🏗 Detailed Explanation of the pattern.
 
 🛠 Varieties within the pattern (e.g., Two Pointers: adjacent, opposite side, fast-slow, situation-based).
 
-💡 Practice Problems categorized by brute force → optimized solutions.
+💡 Each Practice Problem categorized by brute force solution → optimized solutions.
 
 ⏳ Focus on Time & Space Complexity improvements.
 
