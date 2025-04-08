@@ -24,3 +24,4 @@ These notes explain these 4 templates and how to approach any question related t
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;"> <img src="https://github.com/user-attachments/assets/62dd5c5f-b7d8-4a17-a417-f14364067579" width="300"/> <img src="https://github.com/user-attachments/assets/22238782-57ff-45c3-922a-807757c7fee4" width="300"/> <img src="https://github.com/user-attachments/assets/1091faf7-0908-41c5-898c-a40ee6f18032" width="300"/> <img src="https://github.com/user-attachments/assets/52a95a95-9f81-43fc-9e6b-2b45c17e514d" width="300"/> <img src="https://github.com/user-attachments/assets/e33ae3cb-e06e-4a5e-a9dd-f1b97f697356" width="300"/> <img src="https://github.com/user-attachments/assets/eb754b68-3801-409e-8c74-a176f084a271" width="300"/> </div>
 
+✅ With these 4 templates and visual notes, you'll be able to recognize the right pattern quickly and solve problems more efficiently—step by step from brute → better → optimal.
