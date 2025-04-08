@@ -1,5 +1,5 @@
-🚀 DSA Pattern-Based Learning Journey
-📅 Starting Date: 1st April
+# 🚀 DSA Pattern-Based Learning Journey
+# 📅 Starting Date: 1st April
 
 Welcome to my DSA Pattern-Based Learning repository! 🎯 This is where I'll be solving problems topic-wise and, more importantly, pattern-wise to help recognize hidden structures in problems efficiently.
 
