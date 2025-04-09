@@ -119,3 +119,94 @@ class Solution {
         return maxLen;
     }
 }
+```
+
+
+# ✅ PROBLEM 2
+🔗 Leetcode 1423. Maximum Points You Can Obtain from Cards
+
+✅ Problem Recap:
+You are given an integer array cardPoints and an integer k. You can take k cards from either the beginning or the end of the array. Your goal is to maximize the total points obtained by picking exactly k cards.
+
+🧠 Step-by-Step Thought Process:
+🧠 Recognize the Pattern:
+This is a variation of a prefix + suffix or sliding window problem in disguise.
+
+The twist is that you can pick cards only from the two ends — either from the start (left) or the end (right) — and you must pick exactly k cards.
+
+🧠 My Explanation of the Approach:
+Initial Observation:
+
+You can pick cards in any combination from both ends, as long as the total count is k.
+
+So the valid combinations include:
+
+All from left (first k cards)
+
+1 from right + (k-1) from left
+
+2 from right + (k-2) from left
+
+...
+
+All from right (last k cards)
+
+Start with the sum of the first k cards from the left. This is your initial maxSum.
+
+Iterate backward from the left and add cards from the right:
+
+In each step, remove one card from the left (lsum -= cardPoints[i])
+
+Add one card from the right (rsum += cardPoints[rindex])
+
+Update the maxSum by comparing lsum + rsum.
+
+Why this works:
+
+It simulates all valid combinations of taking cards from left and right totaling k cards.
+
+🧪 Let’s Solve One Example:
+Input:
+
+cardPoints = [1, 2, 3, 4, 5, 6, 1], k = 3
+
+Start with sum of first k = 3 elements → lsum = 1 + 2 + 3 = 6
+
+Try taking some cards from the right:
+
+Take 1 from right (1), remove last from left (3) → new sum = 1 + 2 + 1 = 4
+
+Take 2 from right (6 + 1), remove 2 from left (2 + 3) → sum = 1 + 6 + 1 = 8
+
+Take 3 from right (5 + 6 + 1) → sum = 12
+
+Track the maximum at each step → Final maxSum = 12
+
+⚠️ Key Tips to Remember:
+Always ensure total picked cards = k
+
+Don't just add from both ends, but remove from one side to maintain k total
+
+Try to reuse previous calculations (e.g., prefix sum) to save time
+
+```java
+class Solution {
+    public int maxScore(int[] cardPoints, int k) {
+        int lsum =0, rsum = 0, maxSum =0, n = cardPoints.length;
+        for(int i  =0; i < k ; i++){
+            lsum = lsum + cardPoints[i];
+            maxSum = lsum;
+        }
+        int rindex = n - 1;
+        for(int i = k-1 ; i >= 0; i--){
+            lsum = lsum - cardPoints[i];
+            rsum = rsum + cardPoints [rindex];
+            rindex = rindex-1;
+            maxSum = Math.max(maxSum, lsum+rsum);
+
+            }
+        return maxSum;
+    }
+}
+```
+
