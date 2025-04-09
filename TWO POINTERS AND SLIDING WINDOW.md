@@ -85,25 +85,27 @@ Now flip = 2, valid again → continue growing
 Final maxLen = 6
 
 MY SOLUTION:
+### Solution for 1004. Max Consecutive Ones III
+
+```java
 class Solution {
     public int longestOnes(int[] nums, int k) {
         int n = nums.length;
-        int maxLen =0, l =0,r =0,len =0,flip = 0;
-        while(r<n){                                 //r should always be small then array length other array index out of bounds exception occurs
-            if(nums[r] == 1){                      
-               maxLen = Math.max(maxLen,r-l+1);
+        int maxLen = 0, l = 0, r = 0, len = 0, flip = 0;
+        while (r < n) {
+            if (nums[r] == 1) {
+                maxLen = Math.max(maxLen, r - l + 1);
                 r++;
-            }else if(nums[r] == 0 && flip < k){
-                    flip++;
-                    r++;
-                }else if (nums[r] == 0 &&flip >= k){
-                    if(nums[l] == 0){
-                        flip --;
-                    }
-                    l++;
+            } else if (nums[r] == 0 && flip < k) {
+                flip++;
+                r++;
+            } else if (nums[r] == 0 && flip >= k) {
+                if (nums[l] == 0) {
+                    flip--;
                 }
+                l++;
             }
-            return maxLen;
         }
+        return maxLen;
     }
-
+}
