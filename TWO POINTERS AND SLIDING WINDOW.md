@@ -125,16 +125,16 @@ class Solution {
 # ✅ PROBLEM 2
 🔗 Leetcode 1423. Maximum Points You Can Obtain from Cards
 
-✅ Problem Recap:
+*✅ Problem Recap:*
 You are given an integer array cardPoints and an integer k. You can take k cards from either the beginning or the end of the array. Your goal is to maximize the total points obtained by picking exactly k cards.
 
-🧠 Step-by-Step Thought Process:
-🧠 Recognize the Pattern:
+*🧠 Step-by-Step Thought Process:*
+*🧠 Recognize the Pattern:*
 This is a variation of a prefix + suffix or sliding window problem in disguise.
 
 The twist is that you can pick cards only from the two ends — either from the start (left) or the end (right) — and you must pick exactly k cards.
 
-🧠 My Explanation of the Approach:
+*🧠 My Explanation of the Approach:*
 Initial Observation:
 
 You can pick cards in any combination from both ends, as long as the total count is k.
@@ -182,7 +182,7 @@ Take 3 from right (5 + 6 + 1) → sum = 12
 
 Track the maximum at each step → Final maxSum = 12
 
-⚠️ Key Tips to Remember:
+*⚠️ Key Tips to Remember:*
 Always ensure total picked cards = k
 
 Don't just add from both ends, but remove from one side to maintain k total
@@ -209,4 +209,80 @@ class Solution {
     }
 }
 ```
+# ✅ PROBLEM 3
+🔗 Leetcode 3. Longest Substring Without Repeating Characters
 
+*✅ Problem Recap:*
+Given a string s, find the length of the longest substring without repeating characters.
+
+*🧠 Step-by-Step Thought Process:*
+🔍 Recognize the Pattern:
+This is a Sliding Window + Two Pointers problem.
+
+You're asked to find the longest substring with unique characters — meaning no repeats allowed in the window.
+
+*🧠 My Explanation of the Sliding Window Logic:*
+Goal:
+Maintain a dynamic window [l, r] that always contains unique characters.
+
+How to do that?
+Use a HashSet to keep track of characters inside the current window.
+
+Start with l = 0 and r = 0 (both at beginning), and an empty set.
+
+Expand the window (move r) as long as characters are unique:
+
+If s.charAt(r) is not in the set, add it and update maxLen.
+
+When a duplicate character is found:
+
+You must shrink the window from the left by moving l++ and removing s.charAt(l) from the set until the duplicate is removed.
+
+Keep doing this while r < s.length().
+
+🧪 Let’s Solve One Example:
+Input:
+
+s = "abcabcbb"
+
+*Execution:*
+
+Add 'a' → set = [a] → maxLen = 1
+
+Add 'b' → set = [a,b] → maxLen = 2
+
+Add 'c' → set = [a,b,c] → maxLen = 3
+
+See duplicate 'a' again → remove 'a' from left → set = [b,c] → now add 'a' → set = [b,c,a]
+
+Repeat until done
+
+Final answer: maxLen = 3 (substring: "abc")
+
+*⚠️ Important Tips to Remember:*
+A Set is used to ensure uniqueness of characters.
+
+Shrinking the window only happens when a duplicate is found.
+
+Preserving the order is automatic since we use a window and don’t reorder characters.
+
+```java
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        Set<Character> set = new HashSet<>();
+        int k = s.length();
+        int l =0, r=0, maxLen =0;
+        while(r<k){
+            if(!set.contains(s.charAt(r))){
+                 set.add(s.charAt(r));
+                maxLen = Math.max(maxLen, r-l+1);
+                r++;
+            } else{
+                set.remove(s.charAt(l));
+                l++;
+            }
+        }
+        return maxLen;   
+    }
+}
+```
