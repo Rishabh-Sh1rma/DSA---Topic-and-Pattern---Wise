@@ -39,6 +39,7 @@ Given a binary array nums, and an integer k, return the maximum number of consec
 This is a sliding window + two pointers problem:
 
 *🧠 My Explanation of the Sliding Window Logic*{SEE THE CODE WITH EXPLAINATION}
+
 When iterating through the array:
 
 If nums[r] == 1:
@@ -48,6 +49,7 @@ So, we just update the maxLen and move the right pointer r++.
 If nums[r] == 0:
 We have a choice to flip this 0 to 1.
 So, we check:
+
 If flip < k:
 That means we’re still within our allowed number of flips.
 We increment flip++, then move r++.
@@ -59,8 +61,11 @@ When flip == k and we encounter another 0:
 Now we need to shrink the window from the left until we make space for this new flip.
 
 We move the left pointer l++
+
 While shrinking, if the value we remove (nums[l]) was a flipped 0, we must decrease flip--
+
 This helps adjust our flip count so we stay within the limit.
+
 By maintaining this sliding window with at most k flipped zeros, we continuously update maxLen to track the longest valid window.
 
 *Important tip*
