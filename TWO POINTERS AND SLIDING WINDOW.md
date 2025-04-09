@@ -78,10 +78,15 @@ Step-by-Step Table:
 ![image](https://github.com/user-attachments/assets/e1eb2332-6d08-427c-b94f-08b864bfc8a2)
 
 → Now flip > k, start shrinking:
+
 nums[0] == 1 → move l++ → no flip--
+
 nums[1] == 1 → move l++ → no flip--
+
 nums[2] == 0 → move l++ → flip-- → flip becomes 2 ✅
+
 Now flip = 2, valid again → continue growing
+
 Final maxLen = 6
 
 MY SOLUTION:
