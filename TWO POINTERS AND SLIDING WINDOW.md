@@ -264,7 +264,7 @@ A Set is used to ensure uniqueness of characters.
 
 Shrinking the window only happens when a duplicate is found.
 
-Preserving the order is automatic since we use a window and don’t reorder characters.
+Preserving the order is automatic since we use a window and don’t reorder characters..
 
 ```java
 class Solution {
