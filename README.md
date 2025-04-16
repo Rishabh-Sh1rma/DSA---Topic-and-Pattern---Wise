@@ -6,7 +6,7 @@ Welcome to my DSA Pattern-Based Learning repository! 🎯 This is where I'll be 
 
 🧩 Pattern Recognition – Understanding how to identify patterns in problems.
 
-🏗 Structured Topic-Wise Approach – Beginning with arrays, then diving deep into various patterns.
+🏗 Structured Topic-Wise Approach – Beginning with arrays, then diving deep into various patterns..
 
 🏆 Multiple Approaches – Solving problems using brute force → better → best approaches.
 
