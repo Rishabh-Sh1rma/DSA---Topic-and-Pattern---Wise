@@ -119,6 +119,32 @@ class Solution {
         return maxLen;
     }
 }
+
+Actual correct code
+
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int n = nums.length;
+        int maxLen =0, l =0,r =0,flip = 0;
+        while(r<n){
+           if(nums[r] != 1){
+            flip++; 
+           }
+            while(flip > k){
+            if(nums[l] != 1){
+                flip--;
+            }
+             l++;
+            }
+        maxLen = Math.max(maxLen, r-l+1);
+        r++; 
+        }
+        return maxLen;
+    }
+}
+
+// agar nums of r 0 h to mai flip ko badhadunga frr mai dekhunga ki flip bada h kya k s , agar haan to r++ ho jyga, agar naa to hum nums of l check krnge agar vo 1 h to simple l++ agar zero h matlab while loop k hisab s flip k ko exceed bhi kr gya aur nums[l] 0 bhi h to hamne vapas k ki range m aane k liye flip ko -- krna padega 
+
 ```
 
 
@@ -190,6 +216,18 @@ Don't just add from both ends, but remove from one side to maintain k total
 Try to reuse previous calculations (e.g., prefix sum) to save time
 
 ```java
+
+// q m bola h ki ya to left side s patte utha lo ya right s utha lo, array h yh jiska index bata rha h konsa card h aur value points bata rhi h ki vo card s kitne point milnge.
+apna simple start kro left side s, matlab sare cards left s utha lo unko add kro to yh ek maxsum aagya initially jisko hum initial start m use krnge ab aage frr compare krte jynge nye nye sums s jo bada mila maxsum vo answer.
+1. ititial m ek window bn gyi [l.....k] ki kyuki hmne l s k tak ke cards utha liye.
+2. ab bs condition folow kro new cards bch s nhi uthane mtlb ab hum left se shrink nhi kr skte kyuki left s kiya to hamari na to starting left s bachegi na right se
+ex dekhte h:
+[5,6,8,10,4,7], k =3 to abhi maxsum kya hua 19. ab agar m left s shrink krdu to new window kya hogi [6,8,10] jo ki bch k elements h array ke lkin humko to sirf left side s start hone wale ya right s start hone wale chahiye.
+
+3. ab hum k s shrink krnge matlab ki k p jo element hua uspe hum array k end s ek element daal k dekhnge frr maxsum nikalange agar zda aaya to maxsum update kr dnge, vrna nhi krnge.
+isko repeat krnge aur final answer max points ka mil jyga.
+
+
 class Solution {
     public int maxScore(int[] cardPoints, int k) {
         int lsum =0, rsum = 0, maxSum =0, n = cardPoints.length;
@@ -268,6 +306,7 @@ Preserving the order is automatic since we use a window and don’t reorder char
 
 ```java
 class Solution {
+// q m bol rha h without repeating characters to sedhe sehde hashset use krne ka. check kro set m elemet h agar nhi h to add krdo hai aur agar hai to mtlb ab add krnge to duplicate ho jyga na vo to nhi krna apan ko, to apan piche s shrink krna start kr dnge aur jab tak shrink krnge jab tak duplicate na ht jye.
     public int lengthOfLongestSubstring(String s) {
         Set<Character> set = new HashSet<>();
         int k = s.length();
@@ -287,7 +326,7 @@ class Solution {
 }
 ```
 
-✅ PROBLEM 4
+# ✅ PROBLEM 4
 🔗 GeeksforGeeks - Longest K Unique Characters Substring
 https://www.geeksforgeeks.org/problems/longest-k-unique-characters-substring0853
 
@@ -345,6 +384,7 @@ Final output: 7
 If no substring with exactly k unique characters is found, return -1. That's why maxLen is initialized as -1.
 
 ```java
+//seedhe seehde hashmap k andr "k" s zda elements nhi hone chahiye agar zda h k s to shrink krna start krdo piche s jb tak ek ht na jye
 class Solution {
     public int longestkSubstr(String s, int k) {
         // code here
@@ -375,6 +415,77 @@ class Solution {
         }
         return maxLen;
         
+    }
+}
+```
+# 🟪 Problem 5 → Fruit Into Baskets
+🔗 Leetcode 904. Fruit Into Baskets
+
+✅ Problem Recap:
+You're given an array fruits[], where each element represents a type of fruit on a tree.
+You have two baskets, and you can pick fruits from a continuous row of trees such that you can only pick at most two types of fruits.
+
+Your goal is to find the maximum number of fruits you can collect in a row while following these constraints.
+
+🧠 Step-by-Step Thought Process (Sliding Window + HashMap):
+This is a classic variable-size sliding window problem where:
+
+Each fruit type is tracked in a HashMap.
+
+You’re allowed to pick at most 2 types of fruits.
+
+We expand the window from the right (r++) and shrink it from the left (l++) whenever the number of fruit types exceeds 2.
+
+🍉 Sliding Window Logic:
+Start with two pointers: l = 0, r = 0, and a HashMap to count fruit types.
+
+For each fruits[r]:
+
+Add it to the map and update the count.
+
+If the map contains more than 2 types of fruits:
+
+Shrink the window from the left (l++) until only 2 types remain.
+
+While shrinking, decrease the count of fruits[l], and if it becomes zero, remove it from the map.
+
+After adjusting the window, update maxLen to hold the length of the current valid window.
+
+🧪 Let’s Solve an Example:
+Input: fruits = [1,2,1,2,3]
+
+Start with empty map.
+
+Traverse and fill the map until size > 2:
+
+[1,2,1,2] → valid window → maxLen = 4
+
+Next 3 comes in → map size becomes 3.
+
+Shrink from left: remove 1, then 2 until only two types remain → new window is [2,3]
+
+Continue this process and always track max window with 2 types.
+
+Output: maxLen = 4
+```java
+//isme hashmap ko maintain krna h exactly two type of elements hi hone chahiye usme to uska size 2 s bada hua to piche s window shrink krni h jab tak ek element hat na jye//
+class Solution {
+    public int totalFruit(int[] fruits) {
+        HashMap <Integer,Integer> map  = new HashMap<>();
+        int l =0,r=0,maxLen = 0;
+        while(r<fruits.length){
+                map.put(fruits[r], map.getOrDefault(fruits[r], 0) + 1);
+            while(map.size()>2){
+                map.put(fruits[l],map.get(fruits[l]) -1);
+                if(map.get(fruits[l]) == 0){
+                    map.remove(fruits[l]);
+                }
+                l++;
+            }
+            maxLen = Math.max(maxLen, r-l+1);
+            r++;
+        }
+        return maxLen;
     }
 }
 ```
