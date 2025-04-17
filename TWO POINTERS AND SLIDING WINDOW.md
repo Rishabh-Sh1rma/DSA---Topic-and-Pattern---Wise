@@ -286,3 +286,95 @@ class Solution {
     }
 }
 ```
+
+✅ PROBLEM 4
+🔗 GeeksforGeeks - Longest K Unique Characters Substring
+https://www.geeksforgeeks.org/problems/longest-k-unique-characters-substring0853
+
+✅ Problem Recap:
+Given a string s and an integer k, find the length of the longest substring that contains exactly k unique characters.
+
+If there is no such substring, return -1.
+
+🧠 Step-by-Step Thought Process:
+🔍 Recognize the Pattern:
+This is a Sliding Window + HashMap problem.
+
+You're asked to find the longest valid window that contains exactly k distinct characters.
+
+🧠 My Explanation of the Sliding Window Logic:
+Goal:
+Maintain a window [l, r] with exactly k unique characters and keep track of the maximum window size that satisfies this condition.
+
+Key Steps:
+Use a HashMap to store the frequency of characters inside the window.
+
+Expand the window (move r):
+
+Add s[r] to the map and update its count.
+
+When the map has more than k unique characters:
+
+Shrink the window from the left (l++) until the number of keys in the map becomes <= k.
+
+While shrinking, decrease the count of s[l] in the map.
+
+If its count becomes 0, remove it from the map completely.
+
+When map size is exactly k:
+
+Update maxLen = max(maxLen, r - l + 1)
+
+Continue until r < s.length()
+
+🧪 Let's Solve One Example:
+Input:
+
+```java
+s = "aabacbebebe", k = 3
+```
+Walkthrough:
+
+Build up to "cbebebe" → This has exactly 3 unique characters: c, b, e
+
+Length = 7 → this is the max valid window
+
+Final output: 7
+
+⚠️ Important Edge Case:
+If no substring with exactly k unique characters is found, return -1. That's why maxLen is initialized as -1.
+
+```java
+class Solution {
+    public int longestkSubstr(String s, int k) {
+        // code here
+        HashMap <Character, Integer> map  = new HashMap<>();
+        int l =0,r=0,maxLen = -1; // to check foe no valid substring
+        while(r<s.length()){
+            char right  = s.charAt(r);
+            // if(!map.containsKey(right)){ //not used if condition because if map conatins not not we have to put the element anyways and increase the count;
+                map.put(right, map.getOrDefault(right,0)+1);
+            // }
+            // else{
+                // map.put(right, map.get(right+1));
+            // }
+            while(map.size()>k){
+                char left = s.charAt(l);
+                map.put(left , map.get(left) - 1);
+                if(map.get(left) == 0){
+                    map.remove(left);
+                    
+                }
+                l++;
+            }
+            if(map.size() == k){
+                maxLen = Math.max(maxLen,r-l+1);
+            }
+            r++;
+            
+        }
+        return maxLen;
+        
+    }
+}
+```
