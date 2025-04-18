@@ -489,3 +489,55 @@ class Solution {
     }
 }
 ```
+# 🟩 Problem 6 → Maximum Subarray
+🔗 Leetcode 53. Maximum Subarray
+
+✅ Problem Recap:
+You are given an integer array nums. Your task is to find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+
+🧠 Thought Process (Kadane's Algorithm):
+This problem is solved optimally using Kadane’s Algorithm, a greedy + dynamic programming technique.
+
+We iterate through the array and for each element:
+
+We either:
+
+Continue the current subarray by adding the element to the running sum (sum += nums[r])
+
+OR start a new subarray from the current index if nums[r] is greater than the current sum.
+
+This means the previous subarray's sum became negative or was less beneficial.
+
+We update the maxSum to store the maximum sum seen so far.
+
+🔍 Key Insight:
+If your running sum becomes less than the current number → drop the previous subarray and start fresh from the current number.
+
+Kadane’s algorithm makes sure that we always have the optimal subarray sum ending at the current index.
+
+🧪 Example:
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+Explanation: The subarray [4,-1,2,1] has the largest sum = 6
+
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int r=1; //starting r with 1 kyuki current sum iws already r=0; 
+        int sum= nums[0]; //current sum 
+        int maxSum = nums[0];
+        while(r<nums.length){
+            sum  = sum + nums[r];
+            if (sum < nums[r]) { //agar sum chota h nums of r s mtlb nums of r bada h to sum ko badha dnge aur nums[r] k barabar kr dnge to zda hogay na sum.
+                sum = nums[r]; // Start a new subarray if current element is greater
+            }
+            
+            maxSum = Math.max(maxSum,sum);
+            r++;
+            
+        }
+        return maxSum;
+        
+    }
+}
+```
